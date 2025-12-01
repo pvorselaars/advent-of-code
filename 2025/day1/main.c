@@ -13,28 +13,38 @@ int main(int argc, char *argv[])
     int rot = 0;
     int count = 0;
 
-    while((n = getline(&buf, &len, input)) != -1)
+    while ((n = getline(&buf, &len, input)) != -1)
     {
+        int prev = dial;
         rot = atoi(&buf[1]);
+        printf("dial: %d ", dial);
+        printf("rotate: %d ", rot);
 
-        if(buf[0] == 'L')
+        count += rot / 100;
+        rot %= 100;
+
+        if (buf[0] == 'L')
         {
+            printf("L ");
             dial -= rot;
         }
 
-        if(buf[0] == 'R')
+        if (buf[0] == 'R')
         {
+            printf("R ");
             dial += rot;
         }
 
-        count += dial / 100;
+        if (prev != 0 && dial < 0 || dial >= 101 )
+            count++;
 
-        dial %= 100;
+        dial = ((dial % 100) + 100) % 100;
 
         if (dial == 0)
-        {
             count++;
-        }
+
+        printf("dial: %d\n", dial);
     }
+
     printf("count: %d\n", count);
 }
