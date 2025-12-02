@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include "../../tester.h"
 
 #define MAX_DIGITS 20
-
 
 unsigned long int_pow10(int exp)
 {
@@ -35,7 +35,6 @@ void precompute_r()
         for (int k = 2; k <= d; k++)
         {
             int m = d / k;
-            if (m == 0) continue;
             r_table[d][k] = (int_pow10(m * k) - 1) / (int_pow10(m) - 1);
         }
     }
@@ -48,6 +47,7 @@ int main(int argc, char *argv[])
     char *buf = NULL;
     size_t len = 0;
     ssize_t n;
+    int d, m, r;
 
     unsigned long sum = 0;
     precompute_r();
@@ -59,12 +59,12 @@ int main(int argc, char *argv[])
 
         for (unsigned long i = start; i <= end; i++)
         {
-            int d = digits(i);
+            d = digits(i);
 
             for (int k = 2; k <= d; k++) 
             {
-                int m = d / k;
-                int r = r_table[d][k];
+                m = d / k;
+                r = r_table[d][k];
 
                 if (i % r == 0 && digits(i/r) == m)
                 {
@@ -74,6 +74,7 @@ int main(int argc, char *argv[])
             }
         }
     }
+    ok(sum == 69553832684);
+    results();
 
-    printf("answer: %lu\n", sum);
 }
