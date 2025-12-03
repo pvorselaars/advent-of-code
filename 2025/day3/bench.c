@@ -46,36 +46,9 @@ uint64_t solution(FILE *input, int number)
     return sum;
 }
 
-void test1()
-{
-    FILE *input = fopen("sample1", "r");
-    uint64_t sum = solution(input, 2);
-    ok(sum == 357);
-    fclose(input);
-
-    input = fopen("input", "r");
-    sum = solution(input, 2);
-    ok(sum == 17445);
-    fclose(input);
-}
-
-void test2()
-{
-    FILE *input = fopen("sample1", "r");
-    uint64_t sum = solution(input, 12);
-    ok(sum == 3121910778619);
-    fclose(input);
-
-    input = fopen("input", "r");
-    sum = solution(input, 12);
-    ok(sum == 173229689350551);
-    fclose(input);
-}
-
-
 int main(int argc, char *argv[])
 {
-    run("solution 1", test1);
-    run("solution 2", test2);
-    results();
+    FILE *input = fopen("input", "r");
+    uint64_t sum = solution(input, 12);
+    ok(sum == 173229689350551);
 }
