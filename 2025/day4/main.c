@@ -5,21 +5,17 @@
 
 int accessible(char *grid, uint64_t size, uint32_t x, uint32_t y)
 {
-    if (grid[y*size+x] != '@')
-	    return 0;
+    if(grid[y*size+x] != '@')
+        return 0;
 
-    uint32_t c = 0;
+    uint32_t c = -1;
 
-    for (int i = -1; i <= 1; i++)
+    for (int i = x-1; i <= x+1; i++)
     {
-    	for (int j = -1; j <= 1; j++)
+        for (int j = y-1; j <= y+1; j++)
         {
-            if (x + i < 0 || x + i >= size || y + j < 0 || y + j >= size || (i == 0 && j == 0))
-                continue;
-
-            if(grid[(y+j)*size+(x+i)] == '@')
+            if(grid[j*size+i] == '@')
                 c++;
-
         }
     }
 
