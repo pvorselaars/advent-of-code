@@ -23,6 +23,15 @@ static unsigned int fails = 0;
 	}\
 }
 
+#define test(name, solution, condition) {\
+	const clock_t start = clock();\
+    unsigned long result = solution; \
+    int success = (result == condition);\
+	printf("%s %s\n time: %ld µs\n", name, success ? "passed" : "failed", (long)((clock() - start) * 1000000 / CLOCKS_PER_SEC));\
+    if (!success) \
+        printf("result: %ld\n", result);\
+}
+
 #define run(name, test){\
 	const unsigned int num_test = tests;\
 	const unsigned int num_fail = fails;\
