@@ -19,7 +19,7 @@ static unsigned int fails = 0;
 	tests++;\
 	if(!(test)){\
 		fails++;\
-		printf("\t%s:%d error \n", __FILE__, __LINE__);\
+		printf("\t%s:%d failed: %s \n", __FILE__, __LINE__, #test);\
 	}\
 }
 
