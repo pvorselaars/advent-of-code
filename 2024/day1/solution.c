@@ -74,6 +74,9 @@ uint64_t solution2(const char* filename) {
         for (int j = 0; j < lines; j++) {
             if (l1[i] == l2[j])
                 c++;
+
+            if (l2[j] > l1[i])
+                break;
         }
 
         sum += l1[i]*c;
