@@ -29,7 +29,7 @@ static unsigned int fails = 0;
 	const clock_t start = clock();\
 	printf("\t%s:\n", name);\
 	test();\
-	printf("\t\tpass: %d\tfail: %d\ttime: %ld us\n",\
+	printf("\t\tpass: %d\tfail: %d\ttime: %ld µs\n",\
 		(tests-num_test)-(fails-num_fail),fails-num_fail,\
 	        (long)((clock() - start) * 1000000 / CLOCKS_PER_SEC));\
 }
