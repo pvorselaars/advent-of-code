@@ -66,8 +66,74 @@ uint64_t solution1(const char *filename)
 	return sum;
 }
 
+uint64_t solution2(const char *filename)
+{
+	FILE *input = fopen(filename, "r");
+	if (!input)
+		return -1;
+    
+    uint64_t sum = 0;
+
+    fseek(input, 0, SEEK_END);
+    long size = ftell(input);
+    rewind(input);
+
+    char *buffer = malloc(size+1);
+    
+    size_t read = fread(buffer, 1, size, input);
+
+    int columns = 0;
+    while (buffer[columns] != '\n')
+        columns++;
+
+    columns++;
+    int rows = read/columns;
+
+    char *number = malloc(rows);
+    number[rows-1] = 0;
+
+    char current_op = ' ';
+    uint64_t n = 0;
+    for (int i = 0; i < columns - 1; i++) {
+        int d = 0;
+        for (int k = 0; k < rows - 1; k++) {
+           char val = buffer[k * columns + i];
+           if (val != ' ')
+               number[d++] = val;
+        }
+        number[d] = 0;
+
+        char op = buffer[(rows-1) * columns + i];
+        
+        if (op == '+' || op == '*') {
+            current_op = op;
+        } else if (*number == 0) {
+            sum += n;
+            n = 0;
+            continue;
+        }
+
+        if (current_op == '+')
+            n += strtoul(number, NULL, 10);
+
+        if (current_op == '*') {
+            if (n == 0) { 
+                n = strtoul(number, NULL, 10);
+            } else {
+                n *= strtoul(number, NULL, 10);
+            }
+        }
+
+    }
+    sum += n;
+
+	return sum;
+}
+
 int main(int argc, char *argv[])
 {
 	test("solution 1, sample", solution1("sample"), 4277556);
 	test("solution 1, input", solution1("input"), 5346286649122);
+	test("solution 2, sample", solution2("sample"), 3263827);
+	test("solution 2, input", solution2("input"), 10389131401929);
 }
