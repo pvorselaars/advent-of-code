@@ -1,3 +1,3 @@
 solution.bin: solution.c
-	cc -g -o $@ $< && ./$@
+	cc -O3 -o $@ $< && ./$@
 	hyperfine -N --warmup 100 ./$@
